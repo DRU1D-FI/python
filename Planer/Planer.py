@@ -18,9 +18,19 @@ class Tasklist:
         self.tasklist.append(task)
         return
     
-    def delete(self, id):
-        return
 
+
+    def delete(self, id):
+
+        for i in range(len(self.tasklist)):
+            task = self.tasklist[i]
+            if task.id == id:
+                self.tasklist.pop(i)
+
+        # for task in self.tasklist:
+        #     if task.id == id:
+        #         self.tasklist.remove(task)
+        #     return
 
 class Saver:
     def save(self, message, user_list):

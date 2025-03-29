@@ -1,5 +1,9 @@
 from Planer import Event, Tasklist, IDManager
 
+def printTasks(tasks):
+    for task in tasks:
+        print(task.description , task.type , task.date ,task.id)
+
 def main1():
     number = 1
     print("python main function")
@@ -21,11 +25,13 @@ def main1():
     # tasklist.append(task)
     # tasklist.append(task1)
     tasks = mylist.gettasks()
-    
-    
-    for task in tasks:
-        print(task.description , task.type , task.date ,task.id )
+        
+    printTasks(tasks)
 
+    mylist.delete(3)
+
+    printTasks(tasks)
+    
     # next_id = IDManager.get_next_id()
 
     # print(next_id)
