@@ -1,5 +1,8 @@
+from datetime import datetime, timedelta,date
+
 class Event:
-    def __init__(self, date, description, type):
+
+    def __init__(self, date: date, description, type):
         self.date = date
         self.description = description
         self.type = type
@@ -31,7 +34,15 @@ class Tasklist:
         #     if task.id == id:
         #         self.tasklist.remove(task)
         #     return
+        
+    def weeklyTasks(self):
+        today = datetime.today().date()
+        start_of_week = today - timedelta(days=today.weekday())
+        end_of_week = start_of_week + timedelta(days=6)
 
+
+        return [task for task in self.tasklist if start_of_week <= task.date <= end_of_week]
+    
 class Saver:
     def save(self, message, user_list):
         user_input = input(message)
@@ -45,3 +56,4 @@ class IDManager:
         assigned_id = cls.next_id  
         cls.next_id += 1  
         return assigned_id
+

@@ -1,4 +1,5 @@
 from Planer import Event, Tasklist, IDManager
+from datetime import date
 
 def printTasks(tasks):
     for task in tasks:
@@ -12,9 +13,13 @@ def main1():
     task2 = Event("23.03.25" , "German page 3" , "homework")
     task3 = Event("24.03.25" , "french" , "homework")
     mylist = Tasklist()
-    mylist.addtask(task1)
-    mylist.addtask(task2)
-    mylist.addtask(task3)
+    # mylist.addtask(task1)
+    # mylist.addtask(task2)
+    # mylist.addtask(task3)
+    mylist.addtask(Event(date(2025, 4, 9), "WAH", "test"))
+    mylist.addtask(Event(date(2025, 4, 3), "english", "test"))
+    mylist.addtask(Event(date(2025, 4, 13), "NT", "test"))  # Next week
+
     # date = input("Enter the date: ")
     # description = input("Enter the description:")
     # type = input("enter the type: ")
@@ -28,10 +33,13 @@ def main1():
         
     printTasks(tasks)
 
-    mylist.delete(3)
+    # mylist.delete(3)
 
-    printTasks(tasks)
-    
+    # printTasks(tasks)
+    print("======================")
+    for task in mylist.weeklyTasks(): 
+        print(f"{task.date} - {task.description} ({task.type})")
+   
     # next_id = IDManager.get_next_id()
 
     # print(next_id)
