@@ -9,6 +9,8 @@ def printTasks(tasks):
 
 # --- Frontend with NiceGUI ---
 class CalendarApp:
+    ui.page_title("The Planner")
+
     def __init__(self):
         self.tasklist = Tasklist()  # Initialize your Tasklist
 
