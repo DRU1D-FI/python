@@ -1,44 +1,11 @@
 from nicegui import ui
 from datetime import datetime, date, timedelta
+from Planer import Tasklist, Event
 
-# --- Your original classes ---
-class Event:
-    def __init__(self, date: date, description, type):
-        self.date = date
-        self.description = description
-        self.type = type
-        self.id = IDManager.get_next_id()
+def printTasks(tasks):
+    for task in tasks:
+        print(task.description , task.type , task.date ,task.id)
 
-class Tasklist:
-    def __init__(self):
-        self.tasklist = []
-
-    def gettasks(self):
-        return self.tasklist
-
-    def addtask(self, task: Event):
-        self.tasklist.append(task)
-
-    def delete(self, id):
-        for i in range(len(self.tasklist)):
-            task = self.tasklist[i]
-            if task.id == id:
-                self.tasklist.pop(i)
-
-    def weeklyTasks(self):
-        today = datetime.today().date()
-        start_of_week = today - timedelta(days=today.weekday())
-        end_of_week = start_of_week + timedelta(days=6)
-        return [task for task in self.tasklist if start_of_week <= task.date <= end_of_week]
-
-class IDManager:
-    next_id = 1 
-
-    @classmethod
-    def get_next_id(cls):
-        assigned_id = cls.next_id  
-        cls.next_id += 1  
-        return assigned_id
 
 # --- Frontend with NiceGUI ---
 class CalendarApp:
@@ -78,6 +45,8 @@ class CalendarApp:
                 )
                 self.tasklist.addtask(new_event)
                 ui.notify(f"Added: {new_event.description} on {new_event.date}")
+                print(f"Tasklist now has {len(self.tasklist.gettasks())} events")
+
                 dialog.close()
 
             ui.button('Save', on_click=save_event)
@@ -85,8 +54,11 @@ class CalendarApp:
 
         dialog.open()
 
+    
     def show_weekly_tasks(self):
         tasks = self.tasklist.weeklyTasks()
+        print("weekly tasks: ", len(tasks))
+        printTasks(tasks)
 
         with ui.dialog() as dialog, ui.card():
             ui.label('Weekly Tasks').classes('text-xl font-bold')
@@ -111,6 +83,7 @@ class CalendarApp:
             ui.button('Close', on_click=dialog.close)
 
         dialog.open()
+        
 # Run app
 print("starting...")
 CalendarApp()
